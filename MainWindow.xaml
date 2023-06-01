@@ -1,0 +1,275 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Elementary_schools_overview"
+        xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="Elementary_schools_overview.MainWindow"
+        mc:Ignorable="d"
+        Title="Elementary school - overview in Serbia" Height="450" Width="800" ResizeMode="NoResize" Loaded="Window_Loaded">
+    <TabControl x:Name="tab_control" SelectionChanged="tab_control_SelectionChanged">
+        <TabItem>
+            <TabItem.Header>Overview</TabItem.Header>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <!--SEKCIJA GORE LEVO-> IKONICA I COMBO BOX-->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image x:Name="tab1_school_image" Source="/Files/Static/undefined.png" Width="64" Height="64" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10 10 20 10" Stretch="Fill"/>
+                    <ComboBox x:Name="tab1_school_combo_box" Grid.Column="1" Height="64" MinWidth="250" Padding="10 25 20 20" FontSize="14" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 10 0 0" SelectionChanged="tab1_school_combo_box_Selected"/>
+                </Grid>
+                <!-- KRAJ SEKCIJE GORE LEVO -->
+                <!-- SEKCIJA DOLE LEVO -> DATAGRID TABLE -->
+                <DataGrid x:Name="tab1_data_grid" Grid.Row="1" Grid.Column="0" IsReadOnly="True" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False" IsSynchronizedWithCurrentItem="True" Margin="10 10 10 10" SelectionChanged="tab1_data_grid_SelectionChanged">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="JMBG" Width="120" Binding="{Binding get_JMBG}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Name" Width="125" Binding="{Binding Name}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Surname" Width="125" Binding="{Binding Surname}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Adress" Width="150" Binding="{Binding Adress}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <!-- KRAJ SEKCIJE DOLE LEVO => DATAGRID TABLE -->
+                <!-- POCETAK SEKCIJE GORE DESNO => IZMENA, BRISANJE, DODAVANJE SKOLE -->
+                
+                <StackPanel Grid.Row="0" Grid.Column="1">
+                    <Label>School ID</Label>
+                    <TextBox x:Name="tab1_tb_school_id" Margin="15 0 15 0" Height="25" IsEnabled="False"></TextBox>
+                    <Label>School name</Label>
+                    <TextBox x:Name="tab1_tb_school_name" Margin="15 0 15 0" Height="25"></TextBox>
+                    <Label>School adress</Label>
+                    <TextBox x:Name="tab1_tb_school_adress" Margin="15 0 15 0" Height="25"></TextBox>
+                    <Grid ToolTipService.IsEnabled="True">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="tab1_btn_new_school" Grid.Column="0" Height="30" Margin="15 10 15 15" Click="tab1_btn_new_school_Click">
+                            <Button.ToolTip>
+                                <ToolTip>
+                                    <TextBox Text="The selected scool on left will be unselected.&#x0a;Fields in this form will be cleared&#x0a;for entering a new school."></TextBox>
+                                </ToolTip>
+                            </Button.ToolTip>
+                            Add school
+                        </Button>
+                        <Button x:Name="tab1_btn_edit_school" Grid.Column="1" Height="30" Margin="15 10 15 15" Click="tab1_btn_edit_school_Click">Edit school</Button>
+                        <Button x:Name="tab1_btn_delete_school" Grid.Column="2" Height="30" Margin="15 10 15 15" Click="tab1_btn_delete_school_Click">Delete school</Button>
+                    </Grid>
+                </StackPanel>
+                <!-- KRAJ SEKCIJE GORE DESNO => IZMENA, BRISANJE, DODAVANJE SKOLE -->
+                <!-- POCETAK SEKCIJE O PODACIMA STUDENTA => IZMENA, BRISANJE, DODAVANJE STUDENTA -->
+                <Grid Grid.Row="1" Grid.Column="1" Margin="10 10 10 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Image x:Name="tab1_student_image" Grid.Row="0" Grid.Column="0" Width="32" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 15 10 0"></Image>
+                    <StackPanel Grid.Row="0" Grid.Column="1">
+                        <Label>JMBG:</Label>
+                        <TextBox x:Name="tab1_tb_student_jmbg" Height="20" Margin="10 0 0 0" IsEnabled="False"></TextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Grid.Column="0">
+                        <Label>Name:</Label>
+                        <TextBox x:Name="tab1_tb_student_name" Height="20" Margin="00 0 0 0"></TextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Grid.Column="1">
+                        <Label>Surname:</Label>
+                        <TextBox x:Name="tab1_tb_student_surname" Height="20" Margin="10 0 0 0"></TextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Row="2" Grid.Column="0">
+                        <Label>Adress</Label>
+                        <TextBox x:Name="tab1_tb_student_adress" Height="20"></TextBox>
+                    </StackPanel>
+                    <StackPanel x:Name="tab1_stack_panel_gender" Grid.Row="2" Grid.Column="1" IsEnabled="false">
+                        <Label>Gender</Label>
+                        <Grid Margin="10 2 0 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <RadioButton x:Name="tab1_rb_male" Grid.Column="0">Male</RadioButton>
+                            <RadioButton x:Name="tab1_rb_female" Grid.Column="1">Female</RadioButton>
+                        </Grid>
+                    </StackPanel>
+                    <Grid Grid.Row="3" Grid.ColumnSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="tab1_btn_student_add" Grid.Column="0" Margin="0 7 15 10" Click="tab1_btn_student_add_Click">Add student</Button>
+                        <Button x:Name="tab1_btn_student_edit" Grid.Column="1" Margin="10 7 10 10" Click="tab1_btn_student_edit_Click">Edit student</Button>
+                        <Button x:Name="tab1_btn_student_delete" Grid.Column="2" Margin="15 7 0 10" Click="tab1_btn_student_delete_Click">Delete student</Button>
+                    </Grid>
+                </Grid>
+                <!-- KRAJ DELA O PODACIMA STUDENATA => IZMENA, BRISANJE, DODAVANJE STUDENTA -->
+            </Grid>
+        </TabItem>
+        <!-- =================================================================================================== -->
+        <TabItem>
+            <TabItem.Header>Enroll/Switch</TabItem.Header>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="4*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <ComboBox x:Name="tab2_cb_left_school" Grid.Row="0" Grid.Column="0" Padding="15" Margin="10 15 10 15" SelectionChanged="tab2_cb_left_school_SelectionChanged"></ComboBox>
+                <ComboBox x:Name="tab2_cb_right_school" Grid.Row="0" Grid.Column="1" Padding="15" Margin="10 15 10 15" SelectionChanged="tab2_cb_right_school_SelectionChanged"></ComboBox>
+                <ListView x:Name="tab2_lv_left_school" Grid.Row="1" Grid.Column="0" Margin="10 10 10 10" AllowDrop="True" Drop="tab2_lv_left_school_Drop" PreviewMouseLeftButtonDown="tab2_lv_left_school_PreviewMouseLeftButtonDown" PreviewMouseMove="tab2_lv_left_school_PreviewMouseMove">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Icon" Width="48">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding get_ImgIcon}" Width="32"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="JMBG" DisplayMemberBinding="{Binding get_JMBG}" Width="110"/>
+                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="100" />
+                            <GridViewColumn Header="Surname" DisplayMemberBinding="{Binding Surname}" Width="100"/>
+                            <GridView.ColumnHeaderContainerStyle>
+                                <Style TargetType="{x:Type GridViewColumnHeader}">
+                                    <EventSetter Event="PreviewMouseMove" Handler="ColumnHeaderFixSizeEvent" />
+                                </Style>
+                            </GridView.ColumnHeaderContainerStyle>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+                <ListView x:Name="tab2_lv_right_school" Grid.Row="1" Grid.Column="1" Margin="10 10 10 10" AllowDrop="True" Drop="tab2_lv_right_school_Drop" PreviewMouseLeftButtonDown="tab2_lv_right_school_PreviewMouseLeftButtonDown" PreviewMouseMove="tab2_lv_right_school_PreviewMouseMove">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Icon" Width="48">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding get_ImgIcon}" Width="32" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="JMBG" DisplayMemberBinding="{Binding get_JMBG}" Width="110"/>
+                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="100" />
+                            <GridViewColumn Header="Surname" DisplayMemberBinding="{Binding Surname}" Width="100"/>
+                            <GridView.ColumnHeaderContainerStyle>
+                                <Style TargetType="{x:Type GridViewColumnHeader}">
+                                    <EventSetter Event="PreviewMouseMove" Handler="ColumnHeaderFixSizeEvent" />
+                                </Style>
+                            </GridView.ColumnHeaderContainerStyle>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+            </Grid>
+        </TabItem>
+        <!-- =================================================================================== -->
+        <TabItem>
+            <TabItem.Header>Map</TabItem.Header>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <ListView x:Name="tab3_lv_schools" Grid.Row="0" Grid.Column="0" Margin="10 10 10 10" SelectionChanged="tab3_lv_schools_SelectionChanged" PreviewMouseLeftButtonDown="tab3_lv_schools_PreviewMouseLeftButtonDown" PreviewMouseMove="tab3_lv_schools_PreviewMouseMove">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Icon" Width="48">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding get_ImgIcon}" Width="32" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}" Width="30"/>
+                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="150" />
+                            <GridViewColumn Header="Adress" DisplayMemberBinding="{Binding Adress}" Width="150"/>
+                            <GridView.ColumnHeaderContainerStyle>
+                                <Style TargetType="{x:Type GridViewColumnHeader}">
+                                    <EventSetter Event="PreviewMouseMove" Handler="ColumnHeaderFixSizeEvent" />
+                                </Style>
+                            </GridView.ColumnHeaderContainerStyle>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+                <ListView x:Name="tab3_lv_students" Grid.Row="1" Grid.Column="0" Margin="10 10 10 10" PreviewMouseLeftButtonDown="tab3_lv_students_PreviewMouseLeftButtonDown" PreviewMouseMove="tab3_lv_students_PreviewMouseMove" >
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Icon" Width="48">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding get_ImgIcon}" Width="32" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="JMBG" DisplayMemberBinding="{Binding get_JMBG}" Width="110"/>
+                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="100" />
+                            <GridViewColumn Header="Surname" DisplayMemberBinding="{Binding Surname}" Width="100"/>
+                            <GridView.ColumnHeaderContainerStyle>
+                                <Style TargetType="{x:Type GridViewColumnHeader}">
+                                    <EventSetter Event="PreviewMouseMove" Handler="ColumnHeaderFixSizeEvent" />
+                                </Style>
+                            </GridView.ColumnHeaderContainerStyle>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+                <Image Grid.RowSpan="2" Grid.Column="1" Source="/Files/Static/serbia.jpg" Width="400" AllowDrop="True" Drop="Image_Drop" />
+
+                <ItemsControl x:Name="tab3_ic_icons" Grid.RowSpan="2" Grid.Column="1">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding ImgIcon}" Width="32" Margin="{Binding Position}">
+                                <Image.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem x:Name="tab3_img_cm_removeFromMap" Header="Remove from map" Click="tab3_img_cm_removeFromMap_Click"/>
+                                        <MenuItem x:Name="tab3_img_cm_deleteFromDB" Header="Delete" Click="tab3_img_cm_deleteFromDB_Click"/>
+                                    </ContextMenu>
+                                </Image.ContextMenu>
+                            </Image>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemContainerStyle>
+                        <Style>
+                            <Setter Property="Canvas.Left" Value="{Binding PositionX}" />
+                            <Setter Property="Canvas.Top" Value="{Binding PositionY}" />
+                        </Style>
+                    </ItemsControl.ItemContainerStyle>
+                </ItemsControl>
+                
+            </Grid>
+        </TabItem>
+    </TabControl>
+</Window>
